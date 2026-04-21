@@ -1,0 +1,12 @@
+# Sensitive files -- never commit
+.env
+tetration_installer.sh
+*.sh
+.DS_Store
+
+# Python cache
+__pycache__/
+**/__pycache__/
+*.pyc
+*.pyo
+*.pyd
