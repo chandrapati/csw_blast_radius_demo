@@ -1,0 +1,10 @@
+# CSW Blast Radius Demo — Python dependencies
+#
+# All required functionality uses ONLY the Python 3.9+ standard library, so
+# this file is intentionally tiny. PyYAML is optional — when present, it is
+# used to parse config.yaml. When absent, a built-in fallback parser handles
+# the limited YAML subset used in this project.
+#
+# Install with:
+#   pip install -r requirements.txt
+PyYAML>=6.0

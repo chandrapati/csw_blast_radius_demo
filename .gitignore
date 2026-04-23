@@ -1,12 +1,26 @@
-# Sensitive files -- never commit
-.env
-tetration_installer.sh
-*.sh
-.DS_Store
+# =============================================================================
+# CSW Blast Radius Demo — Git ignore rules
+# =============================================================================
 
-# Python cache
+# ---- Secrets / tenant-specific files (never commit) -------------------------
+.env
+config.yaml
+tetration_installer.sh
+
+# ---- OS noise ---------------------------------------------------------------
+.DS_Store
+Thumbs.db
+
+# ---- Python -----------------------------------------------------------------
 __pycache__/
 **/__pycache__/
 *.pyc
 *.pyo
 *.pyd
+.venv/
+venv/
+*.egg-info/
+
+# ---- Local logs / scratch ---------------------------------------------------
+*.log
+.tmp/

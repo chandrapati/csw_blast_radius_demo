@@ -1,0 +1,98 @@
+# =============================================================================
+# CSW Blast Radius Demo — Environment Configuration (template)
+#
+# Copy this file to `config.yaml` and edit values for your environment.
+#   cp config.yaml.example config.yaml
+#
+# `config.yaml` is git-ignored. This `.example` file is safe to commit.
+# Secrets (API key/secret) live in `.env`, NEVER in this file.
+# =============================================================================
+
+# -----------------------------------------------------------------------------
+# CSW (Tetration) cluster details
+# -----------------------------------------------------------------------------
+csw:
+  # Cluster hostname only — no scheme, no path
+  tenant: "your-cluster.tetrationcloud.com"
+
+  # Root scope of your tenant. Labels uploaded by Phase 1 are scoped here.
+  # Find it in the CSW UI: Organize > Scopes and Inventory > top-level node.
+  root_scope_name: "YOUR_ROOT_SCOPE"
+
+# -----------------------------------------------------------------------------
+# SSH defaults — used when deploying agents and running traffic probes
+# -----------------------------------------------------------------------------
+ssh:
+  # Path to the private key authorised on every lab VM
+  key_path: "~/.ssh/csw_lab_key"
+
+  # Default SSH user (overridable per-VM via vms[*].ssh_user)
+  user: "labuser"
+
+  # SSH ConnectTimeout in seconds — fail fast if a VM is unreachable
+  connect_timeout: 10
+
+# -----------------------------------------------------------------------------
+# CSW agent installer
+# -----------------------------------------------------------------------------
+# Path (relative to repo root) to the bash installer downloaded once from
+# the CSW UI:  Manage > Agents > Installer > Agent Script Installer >
+#              Linux > Enforcement > No Expiration
+# This file is git-ignored because it embeds your tenant cert.
+agent_installer: "./tetration_installer.sh"
+
+# -----------------------------------------------------------------------------
+# Lab VMs — at least one with role=app and one with role=db are required
+# -----------------------------------------------------------------------------
+vms:
+  - ip: "10.0.0.11"
+    hostname: "vm-app-01"
+    role: "app"               # used by Phase 3 to build the inventory filter
+    env: "lab-demo"
+    ssh_user: "labuser"
+    description: "Application tier — the simulated attacker foothold"
+
+  - ip: "10.0.0.15"
+    hostname: "vm-db-01"
+    role: "db"                # used by Phase 3 to build the inventory filter
+    env: "lab-demo"
+    ssh_user: "labuser"
+    description: "Database tier — the blast radius target"
+
+# -----------------------------------------------------------------------------
+# Demo-specific settings
+# -----------------------------------------------------------------------------
+demo:
+  # Scope created by Phase 1 (must NOT already exist; Phase 5 deletes it).
+  scope_name: "BlastRadius-Demo"
+
+  # Parent scope under which `scope_name` is created. Must already exist.
+  parent_scope_name: "Applications"
+
+  # Workspace created by Phase 3 (one workspace per scope).
+  workspace_name: "Blast Radius Demo Policy"
+
+  # Application label value applied to every VM. Phase 1 uploads
+  #   user_Application = <application_label>
+  # and Phase 1's scope query filters on it. Pick something unique to your demo
+  # so it cannot collide with other tenants.
+  application_label: "BlastRadiusDemo"
+
+  # The single allowed flow after enforcement:  app  -> db   on TCP/<allowed_port>
+  allowed_port: 5432
+
+  # The management host (e.g. operator's laptop). Gets ALLOW for SSH only,
+  # so you can keep accessing both VMs after enforcement clamps everything else.
+  # Must be a single IPv4 address — no CIDRs, no hostnames.
+  mgmt_ip: "203.0.113.10"
+  mgmt_port: 22
+
+  # Traffic simulator behaviour
+  traffic_interval: 5         # seconds between probe rounds
+  probe_ports:                # ports to test before/after enforcement
+    - 5432
+    - 8080
+    - 6379
+    - 3306
+    - 22
+    - 80
