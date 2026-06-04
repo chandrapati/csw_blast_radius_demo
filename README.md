@@ -464,5 +464,7 @@ Other public repositories covering the full Cisco Secure Workload journey — fr
 | **CSW-Operations-Toolkit**(https://github.com/chandrapati/CSW-Operations-Toolkit) | Reusable POV engagement toolkit — clone for each new engagement | SEs running a CSW proof-of-value |
 | [**CSW-ServiceNow-Connector-Guide**](https://github.com/chandrapati/CSW-ServiceNow-Connector-Guide) | ServiceNow CMDB connector (Inventory Enrichment): setup, label usage, operations, and limits — validated against CSW 4.0 docs | SE/SA and platform/CMDB teams |
 
+| [csw-ise-integration](https://github.com/chandrapati/csw-ise-integration) | ISE/pxGrid integration: user-identity–aware microsegmentation via pxGrid 2.0 | Identity & Zero Trust |
+
 > **Suggested path for a new customer:**
-> CSW-User-Education → CSW-Agent-Installation-Guide → CSW-Policy-Lifecycle → csw-splunk-integration → CSW-Compliance-Mapping
+> CSW-User-Education → CSW-Agent-Installation-Guide → CSW-Policy-Lifecycle → csw-ise-integration → csw-splunk-integration → CSW-Compliance-Mapping
