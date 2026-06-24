@@ -1,5 +1,7 @@
 # CSW Blast Radius Demo — Stop Lateral Movement with Cisco Secure Workload
 
+![Visitors](https://visitor-badge.laobi.icu/badge?page_id=chandrapati.csw_blast_radius_demo&left_text=visitors)
+
 Automated, repeatable Cisco Secure Workload (CSW / Tetration) demo that proves
 **blast radius containment** — what happens to an attacker who is already
 inside your network the moment CSW enforcement turns on.
